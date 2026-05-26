@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Zizou Travel Istanbul | رحلات فاخرة في تركيا</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ===== Car Entrance Animation ===== */
+        .transfer-image {
+            /* Initial hidden state — car off-screen to the left */
+            opacity: 0;
+            transform: translateX(-120px) rotate(-6deg) scale(0.9);
+            transition: none;
+        }
+
+        .transfer-image.car-visible {
+            animation: carDriveIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes carDriveIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-140px) rotate(-8deg) scale(0.88);
+                filter: blur(4px);
+            }
+
+            55% {
+                opacity: 1;
+                transform: translateX(18px) rotate(2deg) scale(1.03);
+                filter: blur(0);
+            }
+
+            75% {
+                transform: translateX(-8px) rotate(-1deg) scale(0.99);
+            }
+
+            90% {
+                transform: translateX(5px) rotate(0.5deg) scale(1.005);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Continuous float after entrance */
+        .transfer-image.car-visible img {
+            animation: carFloat 5s ease-in-out infinite 1.1s;
+        }
+
+        @keyframes carFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Headlight glow pulse */
+        .transfer-image.car-visible::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 30px;
+            width: 80px;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(255, 220, 80, 0.45) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: headlightPulse 2.5s ease-in-out infinite 1.2s;
+            pointer-events: none;
+        }
+
+        @keyframes headlightPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scaleX(1);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scaleX(1.3);
+            }
+        }
+
+        /* ===== Best Seller Badge (Seamless Scrolling) ===== */
+        .best-seller-badge {
+            position: absolute;
+            top: 25px;
+            left: -50px;
+            width: 200px;
+            background: linear-gradient(135deg, #f1c40f, #d4af37);
+            color: #000;
+            font-weight: 900;
+            font-size: 1rem;
+            padding: 6px 0;
+            transform: rotate(-45deg);
+            z-index: 10;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeLoop 5s linear infinite;
+        }
+
+        @keyframes marqueeLoop {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===== Single Avis Support (iPad Mockup) ===== */
+        .avis-support-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* iPad Pro Frame (Landscape) */
+        .avis-card {
+            width: 800px;
+            max-width: 95vw;
+            height: 520px;
+            background: #111;
+            /* Black bezel */
+            padding: 18px;
+            /* Bezel thickness */
+            border-radius: 40px;
+            /* Outer rounding */
+            border: 2px solid #555;
+            /* Aluminum edge */
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px #333;
+            /* Inner edge highlight */
+            margin: 0 auto;
+        }
+
+        /* iPad Camera Dot (Left side in landscape) */
+        .avis-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 7px;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #222;
+            border-radius: 50%;
+            box-shadow: inset 0 0 2px #000, 0 0 1px rgba(255, 255, 255, 0.2);
+            z-index: 5;
+        }
+
+        /* iPad Screen */
+        .avis-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            /* Inner screen rounding */
+            overflow: hidden;
+            position: relative;
+            background: #0d1117;
+            /* Dark background so vertical screenshots blend well */
+        }
+
+        .avis-slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: grab;
+        }
+
+        .avis-slider-track:active {
+            cursor: grabbing;
+        }
+
+        .avis-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .avis-slide img {
+            width: 100%;
+            height: 100%;
+            /* contain ensures the tall screenshot is fully visible without cropping */
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.5s ease;
+        }
+
+        /* ===== Slider Arrows ===== */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: 0.3s;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .slider-arrow:hover {
+            background: #d4af37;
+            color: #111;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-arrow {
+            left: 15px;
+        }
+
+        .next-arrow {
+            right: 15px;
+        }
+
+        .avis-slide img:hover {
+            transform: scale(1.05);
+        }
+
+        .avis-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            direction: ltr;
+        }
+
+        .avis-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .avis-dot.active {
+            background: #d4af37;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85vh;
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            object-fit: contain;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #d4af37;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10000;
+        }
+
+        .close-lightbox:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* ===== Category Header Styling ===== */
+        .category-header-container {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px 25px;
+            margin: 60px auto 40px;
+            max-width: 1000px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-header-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 2px;
+            background: var(--gold-primary);
+            box-shadow: 0 0 15px var(--gold-primary);
+        }
+
+        .category-title {
+            color: var(--gold-primary) !important;
+            font-size: 2.2rem !important;
+            margin-bottom: 12px !important;
+            font-family: 'Tajawal', sans-serif !important;
+            font-weight: 800 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 0 !important;
+            text-align: center !important;
+            letter-spacing: 1px;
+        }
+
+        .category-desc {
+            color: var(--white) !important;
+            font-size: 1.15rem !important;
+            opacity: 0.9 !important;
+            max-width: 750px;
+            margin: 0 auto !important;
+            line-height: 1.6 !important;
+            text-align: center !important;
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .category-header-container {
+                margin: 40px 15px 30px;
+                padding: 25px 15px;
+            }
+
+            .category-title {
+                font-size: 1.8rem !important;
+            }
+
+            .category-desc {
+                font-size: 1rem !important;
+            }
+
+            /* iPad Mobile Fixes */
+            .avis-card {
+                height: 400px !important;
+                padding: 10px !important;
+                border-radius: 30px !important;
+            }
+
+            .avis-support-wrapper {
+                padding: 10px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .slider-arrow {
+                display: none !important; /* Swipe only on mobile for better UX */
+            }
+
+            .avis-indicators {
+                margin-top: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div class="loader" id="loader">
+        <img src="images/logo.png" alt="Logo Zizou Travel" class="loader-logo">
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- VIDEO BACKGROUND -->
+    <div class="hero-bg">
+        <video autoplay muted loop playsinline id="heroVideo" preload="metadata"
+            poster="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1920&h=1080&fit=crop">
+            <source src="videos/background.mp4" type="video/mp4">
+            <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1920&h=1080&fit=crop"
+                alt="Istanbul Bosphore" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+        </video>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                <img src="images/logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#accueil">الرئيسية</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+            <li><a href="#services">خدماتنا</a></li>
+            <li><a href="#transfer">النقل VIP</a></li>
+            <li class="dropdown-container">
+                <a href="#destinations" class="dropdown-toggle">الرحلات <i class="fas fa-chevron-down"
+                        style="font-size: 0.7em; margin-right: 3px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="details.html?trip=izmit-sapanca">إزميت، صبنجا ومعشوقية</a></li>
+                    <li><a href="details.html?trip=bursa-uludag">بورصة وجبل أولوداغ</a></li>
+                    <li><a href="details.html?trip=sile-agva">شيلة وأغوا</a></li>
+                    <li><a href="details.html?trip=princes-islands">جزيرة الأميرات</a></li>
+                    <li><a href="details.html?trip=bosphorus-dinner">سهرة البوسفور</a></li>
+                    <li><a href="details.html?trip=yalova">رحلة يلوا الساحرة</a></li>
+                    <li><a href="details.html?trip=istanbul-tour">جولة إسطنبول</a></li>
+                    <li><a href="details.html?trip=cappadocia">كبادوكيا (مدينة المناطيد)</a></li>
+                    <li><a href="details.html?trip=trabzon-north">طرابزون والشمال التركي</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a href="#contact" class="nav-cta">احجز الآن</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <p class="hero-subtitle">مرحباً بك في إسطنبول</p>
+            <h1 class="hero-title">ZIZOU TRAVEL<br>ISTANBUL</h1>
+
+            <div class="hero-buttons">
+                <a href="#destinations" class="btn-primary">
+                    <i class="fas fa-compass"></i>
+                    رحلاتنا
+                </a>
+                <a href="https://wa.me/905558909203" class="btn-secondary" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    اتصل بنا WhatsApp
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS SECTION -->
+    <section class="destinations" id="destinations">
+        <div class="section-header reveal">
+            <p class="section-label">رحلاتنا</p>
+            <h2 class="section-title">استكشف <span>عجائب</span> إسطنبول</h2>
+            <div class="gold-divider" style="margin: 20px auto;"></div>
+            <p class="section-desc">
+                من المعالم التاريخية إلى المناظر الطبيعية، اكتشف كنوز المدينة التي تربط قارتين.
+            </p>
+        </div>
+
+        <!-- CATEGORY 1: الرحلات اليومية -->
+        <div class="category-header-container reveal">
+            <h3 class="category-title"><i class="fas fa-sun"></i> الرحلات اليومية</h3>
+            <p class="category-desc">رحلات ممتعة تنطلق يومياً، مناسبة لجميع أفراد العائلة.</p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card reveal" style="position: relative; overflow: hidden;">
+                <div class="best-seller-badge" dir="ltr">
+                    <div class="marquee-track">
+                        <span>BEST SELLER &bull; BEST SELLER &bull; BEST SELLER &bull;&nbsp;</span>
+                        <span>BEST SELLER &bull; BEST SELLER &bull; BEST SELLER &bull;&nbsp;</span>
+                    </div>
+                </div>
+                <img src="images/izmit.png" alt="إزميت وصبنجا" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">إزميت + صبنجا + معشوقية</h3>
+                    <p class="destination-info"><i class="fas fa-fire"></i> 3 رحلات في رحلة واحدة</p>
+                    <div class="destination-price">فقط <span>299₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🔥
+                        عرض خاص</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20عرض%20رحلة%20إزميت%20وصبنجا"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=izmit-sapanca" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal snowy-theme">
+                <img src="images/bursa.jpg" alt="بورصة وأولوداغ" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;"> بورصة</h3>
+                    <p class="destination-info"><i class="fas fa-mountain"></i> يوم كامل في أحضان الطبيعة</p>
+                    <div class="destination-price">فقط <span>400₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🌲
+                        رحلة الطبيعة</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20بورصة%20وجبل%20أولوداغ"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=bursa-uludag" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal">
+                <img src="images/chila.jpeg" alt="شيلة وأغوا" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">شيلة وأغوا</h3>
+                    <p class="destination-info"><i class="fas fa-water"></i> يوم كامل (البحيرة المخفية ونهر كوكسو)</p>
+                    <div class="destination-price">فقط <span>700₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🌊
+                        رحلة الاستجمام</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20شيلة%20وأغوا"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=sile-agva" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal island-theme">
+                <img src="images/ile.jpg" alt="جزيرة الأميرات" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">جزيرة الأميرات</h3>
+                    <p class="destination-info"><i class="fas fa-ship"></i> يوم كامل (زيارة جزيرتين)</p>
+                    <div class="destination-price">فقط <span>600₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🏝️
+                        رحلة الجزر</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20جزيرة%20الأميرات"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=princes-islands" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal">
+                <img src="images/soiree.png" alt="سهرة البوسفور" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">سهرة البوسفور</h3>
+                    <p class="destination-info"><i class="fas fa-music"></i> عشاء بوفيه وعروض فنية</p>
+                    <div class="destination-price">ابتداءً من <span>600₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">⛴️
+                        سهرة مسائية</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20سهرة%20البوسفور"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=bosphorus-dinner" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal">
+                <img src="images/yalova.png" alt="يلوا" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">رحلة يلوا الساحرة</h3>
+                    <p class="destination-info"><i class="fas fa-leaf"></i> شلالات ومياه كبريتية</p>
+                    <div class="destination-price">فقط <span>900₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">⛱️
+                        رحلة استرخاء</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20يلوا"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=yalova" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destination-card reveal">
+                <img src="images/istanbul-tour.png" alt="جولة إسطنبول" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">جولة إسطنبول</h3>
+                    <p class="destination-info"><i class="fas fa-city"></i> شقيها الأوروبي والآسيوي</p>
+                    <div class="destination-price">فقط <span>500₺</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🌇
+                        جولة المدينة</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20جولة%20إسطنبول"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=istanbul-tour" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: الجولات الخاصة -->
+        <div class="category-header-container reveal">
+            <h3 class="category-title"><i class="fas fa-car-side"></i> الجولات الخاصة</h3>
+            <p class="category-desc">نقدم لكم جولات سياحية خاصة بسيارات VIP حديثة مع سائق يتحدث العربية، لتستمتعوا
+                بالخصوصية التامة والراحة في تنقلاتكم بين أجمل معالم إسطنبول وخارجها. </p>
+            <div style="margin-top: 25px;">
+                <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20الجولات%20الخاصة"
+                    class="btn-primary" target="_blank"
+                    style="display: inline-flex; border-radius: 50px; padding: 12px 30px;">
+                    <i class="fab fa-whatsapp"></i> استفسر عن جولة خاصة
+                </a>
+            </div>
+        </div>
+
+        <!-- CATEGORY 3: الرحلات الأسبوعية -->
+        <div class="category-header-container reveal">
+            <h3 class="category-title"><i class="fas fa-calendar-alt"></i> الرحلات الأسبوعية</h3>
+            <p class="category-desc">برامج سياحية متكاملة لعدة أيام تنطلق كل أسبوع.</p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card reveal">
+                <img src="images/capadocia.jpg" alt="كبادوكيا" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">كبادوكيا (مدينة المناطيد)</h3>
+                    <p class="destination-info"><i class="fas fa-hot-air-balloon"></i> يومين وليلة</p>
+                    <div class="destination-price">فقط <span>110$</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🎈
+                        رحلة أسبوعية</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20كبادوكيا"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=cappadocia" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card reveal">
+                <img src="images/trabzon.png" alt="طرابزون والشمال التركي" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3 class="destination-name" style="font-size: 1.3rem;">طرابزون والشمال التركي</h3>
+                    <p class="destination-info"><i class="fas fa-mountain"></i> 4 أيام و 3 ليالي</p>
+                    <div class="destination-price"><span>تواصل معنا</span></div>
+                    <span class="excursion-tag"
+                        style="background: var(--gold-primary); color: var(--slate-darker); font-weight: bold; margin-bottom: 8px; font-size: 0.7rem; padding: 2px 10px;">🌲
+                        رحلة أسبوعية</span>
+                    <div class="card-buttons">
+                        <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20الاستفسار%20عن%20رحلة%20طرابزون%20والشمال%20التركي"
+                            class="btn-card btn-book" target="_blank">احجز الآن</a>
+                        <a href="details.html?trip=trabzon-north" class="btn-card btn-details">تفاصيل الرحلة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY: نقل سياحي VIP -->
+    <div class="category-header-container reveal">
+        <h3 class="category-title"><i class="fas fa-shuttle-van"></i> نقل سياحي VIP</h3>
+        <p class="category-desc">خدمات استقبال وتوديع وتوصيل بسيارات VIP فخمة تضمن لك الراحة والخصوصية منذ لحظة وصولك.</p>
+    </div>
+
+    <!-- VIP TRANSFER SECTION -->
+    <section class="vip-transfer" id="transfer">
+        <div class="transfer-container reveal">
+            <div class="transfer-content">
+                <p class="section-label" style="text-align: right; margin-bottom: 10px;">نقل سياحي VIP</p>
+                <h2 class="section-title" style="text-align: right; font-size: 2.2rem;">استقبال وتوديع <span>من وإلى
+                        المطار</span></h2>
+                <div class="gold-divider" style="margin: 20px 0; max-width: 150px;"></div>
+                <p class="section-desc" style="text-align: right; margin: 0 0 20px;">
+                    نوفر لك أسطولاً من السيارات الفخمة (Mercedes Vito VIP) لضمان راحتك ورفاهيتك منذ لحظة وصولك إلى
+                    المطار وحتى المغادرة. خدمة احترافية على مدار الساعة لتجربة خالية من المتاعب.
+                </p>
+                <div class="transfer-price" style="text-align: right; margin-bottom: 25px;">
+                    <span style="color: var(--white); font-size: 1.1rem; opacity: 0.8;">السعر يبدأ من </span>
+                    <span
+                        style="color: var(--gold-primary); font-size: 2.5rem; font-weight: 800; text-shadow: 0 0 20px rgba(212,175,55,0.3);">35€</span>
+                </div>
+                <ul class="transfer-features">
+                    <li><i class="fas fa-tv"></i> شاشات ترفيهية</li>
+                    <li><i class="fas fa-snowflake"></i> تكييف ممتاز</li>
+                    <li><i class="fas fa-couch"></i> مقاعد جلدية مريحة</li>
+                </ul>
+                <a href="https://wa.me/905558909203?text=مرحباً%20Zizou%20Travel،%20أريد%20حجز%20سيارة%20VIP%20للنقل%20من%20المطار"
+                    class="btn-primary" target="_blank"
+                    style="display: inline-flex; margin-top: 30px; border-radius: 50px;">
+                    <i class="fab fa-whatsapp"></i> احجز النقل الآن
+                </a>
+            </div>
+            <div class="transfer-image">
+                <img src="images/transfert.png" alt="VIP Transfer Van">
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <p class="section-label">خدماتنا</p>
+            <h2 class="section-title">تجربة <span>فاخرة</span> مخصصة لك</h2>
+            <div class="gold-divider" style="margin: 20px auto;"></div>
+            <p class="section-desc">
+                نحن نهتم بكل التفاصيل لتكون رحلتك مريحة ولا تنسى في قلب إسطنبول.
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fas fa-plane"></i></div>
+                <h3 class="service-title">استقبال المطار</h3>
+                <p class="service-desc">استقبال VIP من المطار إلى فندقك مع سيارات فاخرة وسائقين محترفين.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fas fa-route"></i></div>
+                <h3 class="service-title">جولات سياحية</h3>
+                <p class="service-desc">اكتشف إسطنبول مع مرشدين سياحيين يتحدثون لغتك. جولات مخصصة حسب رغبتك.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fas fa-hotel"></i></div>
+                <h3 class="service-title">حجز الفنادق</h3>
+                <p class="service-desc">نضمن لك أفضل الفنادق بأفضل الأسعار مع إطلالات خلابة ومواقع مميزة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="section-header reveal">
+            <p class="section-label">آراء العملاء</p>
+            <h2 class="section-title">ماذا <span>يقولون</span> عنا</h2>
+            <div class="gold-divider" style="margin: 20px auto;"></div>
+        </div>
+        <div class="avis-support-wrapper reveal">
+            <div style="width: 100%;">
+                <div class="avis-card">
+                    <div class="avis-screen">
+                        <button class="slider-arrow prev-arrow" id="avisPrevBtn"><i
+                                class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow next-arrow" id="avisNextBtn"><i
+                                class="fas fa-chevron-right"></i></button>
+                        <div class="avis-slider-track" id="avisSliderTrack" dir="ltr">
+                            <div class="avis-slide"><img src="images/avis/29e77516-21c8-41e9-ac8c-2e74e51aabb5.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/29e77516-21c8-41e9-ac8c-2e74e51aabb5.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/35d07931-304d-468f-b748-ca03598e1fbb.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/35d07931-304d-468f-b748-ca03598e1fbb.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/6a209c79-0188-4d6e-8d4b-d31ca0ab2bdd.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/6a209c79-0188-4d6e-8d4b-d31ca0ab2bdd.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/70ff4b5b-e7ba-4740-83eb-818f2a80d974.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/70ff4b5b-e7ba-4740-83eb-818f2a80d974.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/776b43b3-f726-43fc-a11d-d8426bb3e731.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/776b43b3-f726-43fc-a11d-d8426bb3e731.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/82f993db-e59a-4ac1-8c1b-36d7c737a787.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/82f993db-e59a-4ac1-8c1b-36d7c737a787.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/990a5fe8-caa0-4ad4-a5d7-13329feb993c.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/990a5fe8-caa0-4ad4-a5d7-13329feb993c.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/bc21b21d-7f70-4be8-86a6-04467724c953.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/bc21b21d-7f70-4be8-86a6-04467724c953.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/c43641ee-6e46-452f-bd91-795303785338.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/c43641ee-6e46-452f-bd91-795303785338.jpg')">
+                            </div>
+                            <div class="avis-slide"><img src="images/avis/d3234e1c-8fa5-427f-b84d-5a13308261ae.jpg"
+                                    alt="Avis client"
+                                    onclick="openLightbox('images/avis/d3234e1c-8fa5-427f-b84d-5a13308261ae.jpg')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="avis-indicators" id="avisIndicators"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / CONTACT SECTION -->
+    <section class="cta-section" id="contact">
+        <div class="cta-content">
+            <p class="section-label">اتصل بنا</p>
+            <h2 class="cta-title">مستعد لعيش <span>المغامرة</span> ؟</h2>
+            <div class="gold-divider" style="margin: 20px auto;"></div>
+            <p class="cta-desc">
+                اتصل بنا الآن لتخطيط رحلتك المخصصة. فريقنا في خدمتك 7/7 للرد على جميع أسئلتك.
+            </p>
+            <div class="hero-buttons" style="justify-content: center;">
+                <a href="https://wa.me/905558909203" class="btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">ZIZOU TRAVEL</div>
+                <p>شريكك الموثوق لرحلاتك في إسطنبول. نحن نقدم أفضل الخدمات السياحية لضمان تجربة لا تنسى في تركيا.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/ZIZOUTRAVEL1" target="_blank" title="Facebook"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/zizou_travel_istanbul" target="_blank" title="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@zizou.travel.ista" target="_blank" title="TikTok"><i
+                            class="fab fa-tiktok"></i></a>
+                    <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">روابط</h4>
+                <ul class="footer-links">
+                    <li><a href="#accueil"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="#destinations"><i class="fas fa-chevron-left"></i> الوجهات</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-left"></i> الخدمات</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">خدمات</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> استقبال المطار</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> جولات سياحية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> حجز فنادق</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">تواصل</h4>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/905558909203" target="_blank"><i class="fas fa-phone"></i>
+                            +905558909203</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 <span>Zizou Travel Istanbul</span>. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/+905558909203" class="whatsapp-float" target="_blank" title="تواصل معنا">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- LIGHTBOX -->
+    <div id="imageLightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" class="lightbox-content" src="">
+    </div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        // ===== Car Drive-In Animation on Scroll =====
+        (function () {
+            const carImg = document.querySelector('.transfer-image');
+            if (!carImg) return;
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        // Small delay for dramatic effect
+                        setTimeout(function () {
+                            carImg.classList.add('car-visible');
+                        }, 200);
+                        observer.unobserve(carImg);
+                    }
+                });
+            }, {
+                threshold: 0.25
+            });
+
+            observer.observe(carImg);
+        })();
+
+        // ===== Avis Gallery Slider Logic =====
+        (function () {
+            const track = document.getElementById('avisSliderTrack');
+            const indicatorsContainer = document.getElementById('avisIndicators');
+            if (!track) return;
+
+            const slides = track.querySelectorAll('.avis-slide');
+            const numSlides = slides.length;
+            let currentIndex = 0;
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+
+            // Create indicators
+            for (let i = 0; i < numSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('avis-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => setPositionByIndex(i));
+                indicatorsContainer.appendChild(dot);
+            }
+            const dots = indicatorsContainer.querySelectorAll('.avis-dot');
+
+            // Arrows Logic
+            const prevBtn = document.getElementById('avisPrevBtn');
+            const nextBtn = document.getElementById('avisNextBtn');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) setPositionByIndex(currentIndex - 1);
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < numSlides - 1) setPositionByIndex(currentIndex + 1);
+                });
+            }
+
+            function setPositionByIndex(index) {
+                currentIndex = index;
+                currentTranslate = currentIndex * -track.offsetWidth;
+                prevTranslate = currentTranslate;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                dots.forEach(d => d.classList.remove('active'));
+                dots[currentIndex].classList.add('active');
+            }
+
+            // Drag events
+            track.addEventListener('mousedown', touchStart);
+            track.addEventListener('touchstart', touchStart, { passive: true });
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('touchend', touchEnd);
+            track.addEventListener('mouseleave', () => {
+                if (isDragging) touchEnd();
+            });
+            track.addEventListener('mousemove', touchMove);
+            track.addEventListener('touchmove', touchMove, { passive: true });
+
+            function touchStart(e) {
+                isDragging = true;
+                startPos = getPositionX(e);
+                track.style.transition = 'none';
+            }
+
+            function touchMove(e) {
+                if (isDragging) {
+                    const currentPosition = getPositionX(e);
+                    const diff = currentPosition - startPos;
+                    track.style.transform = `translateX(${prevTranslate + diff}px)`;
+                }
+            }
+
+            function touchEnd(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                track.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)';
+
+                const endPos = getPositionX(e) || startPos;
+                const diff = endPos - startPos;
+
+                if (diff < -50 && currentIndex < numSlides - 1) {
+                    currentIndex += 1;
+                } else if (diff > 50 && currentIndex > 0) {
+                    currentIndex -= 1;
+                }
+                setPositionByIndex(currentIndex);
+            }
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            // Recalculate on resize
+            window.addEventListener('resize', () => {
+                setPositionByIndex(currentIndex);
+            });
+        })();
+        // ===== Lightbox Logic =====
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('imageLightbox').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>

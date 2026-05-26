@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title id="page-title">تفاصيل الرحلة | Zizou Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --glass-bg: rgba(26, 29, 43, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-gold: #D4AF37;
+            --accent-yellow: #FFB800;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: #0f172a;
+            min-height: 100vh;
+            min-height: 100dvh;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .details-page-wrapper {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-bottom: 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .details-page-wrapper {
+                background-attachment: scroll; /* Fix for mobile background shifts */
+            }
+        }
+
+        .details-page-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%);
+            z-index: 0;
+        }
+
+        .details-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            left: 20px; /* Force it to have a reference for width if needed, or just keep right */
+            display: flex;
+            justify-content: flex-end; /* Align to the right for RTL */
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-gold);
+            color: #1a1d2b;
+        }
+
+        .hero-section {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 30px 60px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .hero-title-card h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin: 0;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .trip-badge {
+            background: var(--accent-gold);
+            color: #1a1d2b;
+            padding: 4px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .main-content-grid {
+            max-width: 1200px;
+            margin: -80px auto 0;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== Layout: phone left + desc right ===== */
+        .phone-desc-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 35px;
+            margin-bottom: 20px;
+        }
+
+        .phone-desc-right {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 10px;
+        }
+
+        .trip-desc-text {
+            font-size: 1.05rem;
+            line-height: 1.95;
+            color: rgba(255, 255, 255, 0.97);
+            white-space: pre-line;
+            background: rgba(255, 255, 255, 0.11);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 24px 26px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            margin-bottom: 30px;
+        }
+
+        /* Itinerary heading inside right column */
+        .itinerary-heading {
+            margin: 0 0 25px;
+            font-size: 1.6rem;
+            border-right: 4px solid var(--accent-gold);
+            padding-right: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        /* ===== iPhone Mockup ===== */
+        .iphone-showcase {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0 40px;
+        }
+
+        .iphone-wrapper {
+            position: relative;
+            animation: floatPhone 4s ease-in-out infinite;
+        }
+
+        @keyframes floatPhone {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-1.5deg);
+            }
+
+            50% {
+                transform: translateY(-14px) rotate(1.5deg);
+            }
+        }
+
+        .iphone-frame {
+            position: relative;
+            width: 255px;
+            height: 528px;
+            background: linear-gradient(160deg, #3c3c3e 0%, #1c1c1e 40%, #2c2c2e 100%);
+            border-radius: 44px;
+            padding: 11px;
+            flex-shrink: 0;
+            box-shadow:
+                /* outer metal ring */
+                0 0 0 1px rgba(255, 255, 255, 0.18),
+                0 0 0 2.5px rgba(80, 80, 80, 0.9),
+                0 0 0 3.5px rgba(0, 0, 0, 0.95),
+                /* depth shadow */
+                0 35px 70px rgba(0, 0, 0, 0.75),
+                /* golden glow */
+                0 0 55px rgba(212, 175, 55, 0.18),
+                /* inner highlight */
+                inset 0 1px 2px rgba(255, 255, 255, 0.12),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .iphone-frame {
+                transform: scale(0.85);
+                margin: -40px 0;
+            }
+        }
+
+        /* Side buttons */
+        .iphone-frame::before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 90px;
+            width: 3px;
+            height: 28px;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            border-radius: 3px 0 0 3px;
+            box-shadow: 0 40px 0 #3a3a3a, 0 78px 0 #3a3a3a;
+        }
+
+        .iphone-frame::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 115px;
+            width: 3px;
+            height: 54px;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 35px;
+            overflow: hidden;
+            position: relative;
+            /* subtle inner shadow to give depth to screen bezel */
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        }
+
+        .iphone-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            /* match screen border perfectly */
+            border-radius: 35px;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 34px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .dynamic-island:hover {
+            width: 200px;
+            height: 42px;
+        }
+
+        .di-camera {
+            width: 9px;
+            height: 9px;
+            background: radial-gradient(circle, #1a4a8a 0%, #0d2a50 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 6px rgba(30, 100, 200, 0.5);
+        }
+
+        .di-dot {
+            width: 5px;
+            height: 5px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Reflection overlay */
+        .iphone-screen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.07) 0%,
+                    transparent 35%,
+                    transparent 65%,
+                    rgba(255, 255, 255, 0.04) 100%);
+            pointer-events: none;
+            z-index: 5;
+            border-radius: 35px;
+        }
+
+        /* Glow effect under phone */
+        .iphone-glow {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: radial-gradient(ellipse, rgba(212, 175, 55, 0.35) 0%, transparent 70%);
+            filter: blur(10px);
+        }
+
+        /* Play/Mute button */
+        .video-controls {
+            position: absolute;
+            bottom: 25px;
+            right: 20px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ctrl-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .ctrl-btn:hover {
+            background: var(--accent-gold);
+            color: #1a1d2b;
+            transform: scale(1.15);
+        }
+
+        /* Status bar icons */
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 10px 18px 0;
+            z-index: 8;
+            pointer-events: none;
+        }
+
+        .status-time {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .status-icons i {
+            font-size: 0.6rem;
+            color: white;
+        }
+
+        /* Decorative sparkles */
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            animation: sparkleAnim 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        .itinerary-timeline {
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 25px;
+            top: 50px;
+            bottom: -35px;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.05));
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+            z-index: 1;
+            transition: 0.3s;
+        }
+
+        .timeline-item:hover .timeline-icon {
+            background: var(--accent-gold);
+            color: #1a1d2b;
+            transform: translateY(-5px);
+        }
+
+        .timeline-info h4 {
+            margin: 0 0 8px;
+            font-size: 1.25rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .timeline-info p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .booking-sidebar-card {
+            background: rgba(255, 255, 255, 0.11);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .price-label {
+            font-size: 1.6rem;
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .price-value {
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            font-weight: 900;
+            margin-bottom: 5px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .price-unit {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 35px;
+        }
+
+        .book-now-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-yellow), #FFA000);
+            color: #1a1d2b;
+            padding: 18px 30px;
+            border-radius: 18px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.4rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.3);
+            border: none;
+        }
+
+        .book-now-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 184, 0, 0.5);
+        }
+
+        .meta-list {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            text-align: right;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .meta-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        .meta-detail i {
+            color: var(--accent-gold);
+            width: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .main-content-grid {
+                grid-template-columns: 1fr;
+                margin-top: -30px;
+            }
+
+            .booking-sidebar-card {
+                position: static;
+                margin-bottom: 40px;
+            }
+
+            .hero-section {
+                height: 40vh;
+            }
+
+            .phone-desc-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .phone-desc-right {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="details-page-wrapper" id="page-wrapper">
+        <nav class="details-nav">
+            <a href="index.html#destinations" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                العودة للرئيسية
+            </a>
+        </nav>
+
+        <header class="hero-section">
+            <div class="hero-title-card">
+                <span class="trip-badge">رحلة مميزة</span>
+                <h1 id="trip-title">تحميل...</h1>
+            </div>
+        </header>
+
+        <main class="main-content-grid">
+            <div class="content-panel">
+                <!-- Phone left + Description & Itinerary right -->
+                <div class="phone-desc-row">
+                    <div class="phone-desc-right">
+                        <div class="trip-desc-text" id="trip-desc">
+                            جاري تحميل تفاصيل الرحلة...
+                        </div>
+
+                        <!-- Itinerary directly below description -->
+                        <h3 class="itinerary-heading">برنامج الرحلة</h3>
+                        <div class="itinerary-timeline" id="itinerary-list">
+                            <!-- Itinerary items will be loaded here -->
+                        </div>
+                    </div>
+                    <div id="gallery-container">
+                        <!-- iPhone injected here -->
+                    </div>
+                </div>
+
+                <div id="trip-includes-section"
+                    style="display: none; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                        <div
+                            style="background: rgba(40, 167, 69, 0.08); padding: 25px; border-radius: 25px; border: 1px solid rgba(40, 167, 69, 0.2);">
+                            <h4 style="color: #4cd137; margin-bottom: 20px; font-size: 1.3rem;"><i
+                                    class="fas fa-check-circle"></i> السعر يشمل</h4>
+                            <ul id="trip-included-list"
+                                style="list-style: none; padding: 0; margin: 0; color: rgba(255,255,255,0.8); line-height: 1.8;">
+                            </ul>
+                        </div>
+                        <div
+                            style="background: rgba(220, 53, 69, 0.08); padding: 25px; border-radius: 25px; border: 1px solid rgba(220, 53, 69, 0.2);">
+                            <h4 style="color: #e84118; margin-bottom: 20px; font-size: 1.3rem;"><i
+                                    class="fas fa-times-circle"></i> غير مشمول</h4>
+                            <ul id="trip-excluded-list"
+                                style="list-style: none; padding: 0; margin: 0; color: rgba(255,255,255,0.8); line-height: 1.8;">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="booking-sidebar">
+                <div class="booking-sidebar-card">
+                    <div class="price-label">أفضل سعر:</div>
+                    <div class="price-value" id="trip-price">0</div>
+                    <div class="price-unit"> / للشخص</div>
+
+                    <a href="#" class="book-now-btn" id="whatsapp-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> احجز الآن
+                    </a>
+
+                    <div class="meta-list">
+                        <div class="meta-detail">
+                            <i class="fas fa-clock"></i>
+                            <span id="trip-duration">8 ساعات</span>
+                        </div>
+                        <div class="meta-detail">
+                            <i class="fas fa-user-friends"></i>
+                            <span id="trip-group">مجموعات صغيرة</span>
+                        </div>
+                        <div class="meta-detail">
+                            <i class="fas fa-language"></i>
+                            <span id="trip-lang">العربية والتركية</span>
+                        </div>
+                        <div class="meta-detail">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>تأمين شامل للرحلة</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        const tripsData = {
+            'princes-islands': {
+                title: 'جزيرة الأميرات',
+                img: 'images/ile.jpg',
+                video: 'videos/ile.mp4',
+                duration: 'يوم كامل',
+                desc: 'اكتشف سحر جزيرة الأميرات 🏝️! نأخذك في رحلة بحرية رائعة لزيارة جزيرتين، مع وقت حر لاستكشاف الطبيعة الهادئة وركوب الدراجات وتناول غداء شهي.',
+                price: '600₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: '09:00', title: 'الانطلاق', desc: 'اصطحاب الزبائن من الفنادق والتوجه بالباص إلى الميناء.' },
+                    { time: '10:00', title: 'الرحلة البحرية', desc: 'ركوب الباخرة والإبحار لمدة ساعة ونصف في بحر مرمرة الخلاب.' },
+                    { time: 'المحطة 1', title: 'جزيرة بورغاز أدا', desc: 'زيارة جزيرة Burgazada للتعرف عليها واستكشاف هدوئها.' },
+                    { time: 'المحطة 2', title: 'جزيرة بويوك أدا', desc: 'التوجه إلى أكبر الجزر (Büyükada)، وأخذ وقت حر للتجول.' },
+                    { time: 'الظهيرة', title: 'الغداء', desc: 'تناول وجبة الغداء .' },
+                    { time: '18:00', title: 'العودة', desc: 'العودة بالباخرة ثم التوصيل إلى الفندق.' }
+                ],
+                included: [
+                    'المواصلات من الفندق 🚌',
+                    'تذكرة الباخرة في بحر مرمرة 🚢',
+                    'وجبة الغداء 🍛',
+                    'مرشد عربي 🕴️'
+                ],
+                excluded: [
+                    'الأنشطة الإضافية مثل ركوب العربات الكهربائية أو الدراجات 🚲'
+                ]
+            },
+            'bosphorus-dinner': {
+                title: 'سهرة البوسفور المسائية',
+                img: 'images/soiree.png',
+                video: 'videos/soiree.mp4',
+                duration: 'مسائية ',
+                desc: 'سهرة بوسفور لا تُنسى 🛳️! متوفرة يومياً بأضخم العروض المسائية.\n\n🚢 السفن العربية:\n- ليالي إسطنبول: 600 تركي\n- سفينة لؤلؤة البوسفور: 700 تركي\n- السفينة الملكية: 20$\n\n🚢 السفن التركية:\n- بدون كحول: 35€\n- مع كحول: 45€\n\n✅ ملاحظة: جميع السفن شاملة المواصلات وعشاء بوفيه مفتوح.',
+                price: 'ابتداءً من 600₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: '19:00', title: 'الانطلاق', desc: 'اصطحابكم من الفنادق وبدء الرحلة المسائية.' },
+                    { time: '20:00', title: 'العشاء المفتوح', desc: 'عشاء بوفيه مفتوح .' },
+                    { time: '21:00', title: 'العروض الفنية', desc: 'عروض فنية متنوعة:أجواء عربية عروض  فنية متنوعة فقرات فلكلورية .' },
+                    { time: '23:30', title: 'نهاية السهرة', desc: 'العودة والتوصيل إلى الفنادق.' }
+                ],
+                included: [
+                    'المواصلات من وإلى الفندق 🚌',
+                    'عشاء بوفيه مفتوح 🍽️',
+                    'جميع العروض الفنية المذكورة 🎭'
+                ],
+                excluded: [
+                    'أي طلب بعد العشاء يكون اكسترا (فاكهة، حلويات، مكسرات، عصائر، شاي، قهوة) ☕'
+                ]
+            },
+            'yalova': {
+                title: 'رحلة يلوا الساحرة',
+                img: 'images/yalova.png',
+                video: 'videos/yalova.mp4',
+                duration: 'يوم كامل',
+                desc: 'اكتشف الطبيعة الخلابة والاسترخاء في رحلة يلوا ⛱️. استمتع بزيارة الشلالات، المياه الكبريتية الحارة، وساحل يلوا، وتناول غداء شهي في أحضان الطبيعة.',
+                price: '999₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: 'صباحاً', title: 'الانطلاق', desc: 'الانطلاق نحو يلوا.' },
+                    { time: 'المحطة 1', title: 'حديقة الحيوانات', desc: 'زيارة حديقة الحيوانات وقضاء وقت ممتع.' },
+                    { time: 'المحطة 2', title: 'شلالات صودوشان', desc: 'الاستمتاع بجمال الطبيعة والمياه المتدفقة من الشلالات.' },
+                    { time: 'المحطة 3', title: 'الحمامات الكبريتية', desc: 'زيارة منطقة الحمامات الكبريتية الساخنة (الترمال) للاسترخاء والاستشفاء.' },
+                    { time: 'المحطة 4', title: 'جولة الدباب الجبلي (ATV)', desc: 'جولة حماسية في الطبيعة الخضراء.' },
+                    { time: 'المحطة 5', title: 'الغداء في الطبيعة', desc: 'تناول وجبة الغداء في مطاعم يلوا وسط المناظر الطبيعية.' },
+                    { time: 'المحطة 6', title: 'ساحل يلوا', desc: 'التجول على ساحل يلوا والتمتع بنسيم البحر.' },
+                    { time: 'مساءً', title: 'العودة', desc: 'انتهاء الرحلة والعودة إلى إسطنبول.' }
+                ],
+                included: [
+                    'المواصلات 🚌',
+                    'وجبة الغداء 🍛'
+                ],
+                excluded: [
+                    'أي أنشطة إضافية لم تُذكر'
+                ]
+            },
+            'istanbul-tour': {
+                title: 'جولة إسطنبول (الآسيوية والأوروبية)',
+                img: 'images/istanbul-tour.png',
+                video: 'videos/istanbul_tour.mp4',
+                duration: 'كل يوم جمعة',
+                desc: 'مزيج رائع بين الترفيه، الأماكن الجميلة، والتسوق! 🏙️ جولة تغطي الجانبين الأوروبي والآسيوي من إسطنبول وتتضمن إطلالات خلابة ونشاطات تناسب الجميع.',
+                price: '500₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: 'صباحاً', title: 'الانطلاق', desc: 'الاصطحاب وبدء الجولة الممتعة.' },
+                    { time: 'المحطة 1', title: 'منتجع الألعاب MARINA', desc: 'التوجه إلى منتجع الألعاب مارينا مع أخذ الوقت الكافي لتجربة الألعاب لمن يرغب 🎢.' },
+                    { time: 'المحطة 2', title: 'تلة نقاش تبه (Nakkaştepe)', desc: 'زيارة التلة ذات الإطلالة الساحرة والبانورامية على مضيق وجسر البوسفور 🌉.' },
+                    { time: 'المحطة 3', title: 'أوليفيوم أوتليت (Olivium Outlet)', desc: 'وقت مخصص للتسوق في مول أوليفيوم الذي يعتبر من أرخص مراكز التسوق (Outlet) في إسطنبول 🛍️.' },
+                    { time: 'مساءً', title: 'العودة', desc: 'انتهاء الجولة والعودة.' }
+                ],
+                included: [
+                    'المواصلات 🚌',
+                    'مرشد ذو خبرة يتحدث العربية 🗣️'
+                ],
+                excluded: [
+                    'الرحلة لا تشمل الطعام ❌',
+                    'تذاكر الألعاب والدخوليات 🎟️'
+                ]
+            },
+            'sile-agva': {
+                title: 'شيلا وأغوا (Şile & Ağva)',
+                img: 'images/chila.jpeg',
+                video: 'videos/chila.mp4',
+                duration: 'يوم كامل',
+                desc: 'رحلة إلى الطبيعة الساحرة والهدوء في شيلاوأغوا 🌊! استمتع بزيارة البحيرة المخفية، وجولة القارب في نهر كوكسو، مع زيارة  على البحر الأسود وحديقة الحيوانات.',
+                price: '700₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: '10:00', title: 'الانطلاق', desc: 'اصطحاب الزبائن من الفنادق والانطلاق من إسطنبول.' },
+                    { time: 'المحطة 1', title: 'البحيرة المخفية', desc: 'زيارة البحيرة المخفية الساحرة وسط الطبيعة والتقاط الصور.' },
+                    { time: 'المحطة 2', title: 'نهر كوكسو', desc: 'جولة ممتعة بالقارب في نهر كوكسو (Göksu).' },
+                    { time: 'المحطة 3', title: 'الغداء', desc: 'استراحة لتناول وجبة الغداء.' },
+                    { time: 'المحطة 4', title: 'ساحل شيلة', desc: 'وقت للراحة والسباحة في ساحل شيلاعلى البحر الأسود (متاح في الصيف لمحبي السباحة).' },
+                    { time: 'المحطة 5', title: 'حديقة الحيوانات', desc: 'زيارة حديقة الحيوانات وقضاء وقت ممتع.' },
+                    { time: 'المحطة 6', title: 'وقت حر للسباحة ', desc: 'الاستمتاع بالسباحة في البحر الأسود.' },
+                    { time: '20:00', title: 'العودة', desc: 'انتهاء الرحلة والعودة إلى إسطنبول.' }
+                ],
+                included: [
+                    'المواصلات 🚌',
+                    'وجبة الغداء 🍛',
+                    'مرشد سياحي يتحدث العربية 🗣️'
+                ],
+                excluded: [
+                    'أي طلبات شخصية أو نشاطات إضافية غير مذكورة'
+                ]
+            },
+            'bursa-uludag': {
+                title: 'مدينة بورصة وجبل أولوداغ',
+                img: 'images/bursa.jpg',
+                video: 'videos/bursa.mp4',
+                duration: 'يوم كامل',
+                desc: 'رحلة إلى مدينة بورصة الخضراء 🌲! استمتع بجمال جبل أولوداغ، تناول وجبة الغداء على قمة الجبل، مع جولة سفاري في يلوا وزيارة مصانع الحلقوم والعسل وركوب التلفريك وتلاسيج  .',
+                price: '400₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: '09:00', title: 'الانطلاق', desc: 'اصطحاب الزبائن من الفنادق والانطلاق من إسطنبول.' },
+                    { time: 'المحطة 1', title: 'جولة سفاري بـ يلوا (Yalova)', desc: 'جولة ممتعة مع زيارة مجمع PAUL MARK لبيع الألبسة التركية .' },
+                    { time: 'المحطة 2', title: 'قمة جبل أولوداغ', desc: 'الصعود إلى القمة (بالتلفريك الكبير) والاستمتاع بالجو الساحر والنشاطات.' },
+                    { time: 'المحطة 3', title: 'الغداء في الجبل', desc: 'تناول وجبة الغداء على الجبل مع وقت للترفيهيات المتاحة في أولوداغ.' },
+                    { time: 'المحطة 4', title: 'مناحل العسل', desc: 'زيارة مناحل العسل الطبيعية في الجبل.' },
+                    { time: 'المحطة 5', title: 'مصنع الحلقوم', desc: 'زيارة مصنع الحلقوم التركي الشهير وتذوق أشهى الحلويات.' },
+                    { time: '23:00', title: 'العودة', desc: 'انتهاء الرحلة والعودة إلى إسطنبول.' }
+                ],
+                included: [
+                    'المواصلات البرية والبحرية 🚌🚢',
+                    'رسوم تكلفة وجبة الغداء على الجبل 🍛',
+                    'مرشد سياحي يتحدث العربية 🗣️'
+                ],
+                excluded: [
+                    'ركوب التلفريك الكبير (اختياري EXTRA) 🚡',
+                    'النشاطات الترفيهية الإضافية على الجبل (اختياري EXTRA) 🎿'
+                ]
+            },
+            'izmit-sapanca': {
+                title: 'إزميت + صبنجا + معشوقية',
+                img: 'images/izmit.png',
+                video: 'videos/izmit.mp4',
+                duration: 'يوم كامل',
+                desc: '💥 عرض خاص: 3 رحلات في رحلة واحدة 💥\nاكتشف جمال الطبيعة في إزميت، صبنجا، ومعشوقية. تشمل الرحلة ازميت مطل القمر زيارة الأكواريوم (Via port tuzla marina)،   حديقة الأسود، التلفريك الجديد ركوب الحبل المعلق ، شلالات وبحيرة صبنجا، مع فرصة لممارسة نشاطات السفاري.',
+                price: '299₺',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: 'صباحاً', title: 'الانطلاق', desc: 'الانطلاق من إسطنبول عبر جسر البوسفور.' },
+                    { time: 'المحطة 1', title: 'تلة القمر (أزميت)', desc: 'الصعود للجبل المطل على البحيرة، ركوب المرجوحة والتقاط الصور.' },
+                    { time: 'المحطة 2', title: 'الأكواريوم وحديقة الأسود', desc: 'استكشاف عالم البحار وحديقة الأسود المثيرة.' },
+                    { time: 'المحطة 3', title: 'التلفريك', desc: 'ركوب التلفريك الكبير والجديد للاستمتاع بالمناظر.' },
+                    { time: 'المحطة 4', title: 'معشوقية', desc: 'وقت حر للنشاطات (دباب جبلي ATV، سفاري، أرجوحة عملاقة).' },
+                    { time: 'المحطة 5', title: 'Zipline', desc: 'جولة الحبل المعلق لمحبي المغامرة.' },
+                    { time: 'المحطة 6', title: 'الغداء', desc: 'استراحة الغداء في أحضان طبيعة صبنجا.' },
+                    { time: 'المحطة 7 و 8', title: 'شلالات وبحيرة صبنجا', desc: 'زيارة الشلالات، بحيرة سوكاي، ومصانع العسل والحلقوم.' },
+                    { time: '21:00', title: 'العودة', desc: 'العودة مساءً إلى إسطنبول.' }
+                ],
+                included: [
+                    'المواصلات 🚌',
+                    'وجبة الغداء🥘',
+                    'دليل مرافق يتحدث اللغة العربية🗣️',
+                    'التوصيل من والى أقرب نقطة من الفندق (يتم الاتفاق عليها) ضمن المنطقة السياحية🏨'
+                ],
+                excluded: [
+                    'الالعاب ودخوليات الأماكن في رحلة (EXTRA) 🎟️',
+                    'الأطفال دون مقعد ودون وجبة  مجاناً على أن لايزيد العمر عن 5 سنوات 👶'
+                ]
+            },
+            'cappadocia': {
+                title: 'رحلة كبادوكيا (مدينة المناطيد)',
+                img: 'images/capadocia.jpg',
+                video: 'videos/capadocia.mp4',
+                duration: 'يومين وليلة (انطلاق الجمعة مساءً)',
+                desc: 'احجز الآن رحلة إلى كبادوكيا معنا! فندق ذو الأجواء الرائعة Taşsaray hotel.',
+                price: '110$',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: 'الجمعة مساءً', title: 'الانطلاق', desc: 'الانطلاق نحو كبادوكيا.' },
+                    { time: 'اليوم الأول', title: 'وصول وجولات', desc: 'جولة وادي هلارا (غير شامل الدخولية)، جولة السفاري ATV (اختياري)، استلام الغرف في الفندق، وجولة مسائية على التراس لأخذ الصور التذكارية.' },
+                    { time: 'اليوم الثاني - فجراً', title: 'المناطيد', desc: 'جولة المناطيد الرائعة.' },
+                    { time: 'اليوم الثاني - صباحاً', title: 'الرجوع للفندق', desc: 'الرجوع للاوتيل للإفطار ومغادرة الاوتيل.' },
+                    { time: 'اليوم الثاني - جولات', title: 'معالم كبادوكيا', desc: 'زيارة معمل الفخار، جولة الأحصنة، المدينة الرومانية، مداخن العفاريت أو القلاع الثلاثة، ومدينة الجن.' },
+                    { time: 'الاثنين فجراً', title: 'العودة', desc: 'العودة إلى إسطنبول والوصول يوم الاثنين بين الساعة الثانية والثالثة صباحاً.' }
+                ],
+                included: [
+                    'السفر بالباصات (اسطنبول - كبادوكيا وبالعكس) 🚌',
+                    'إقامة فندقية 🏨',
+                    'تأمين صحي لكل مسافر 🛡️',
+                    'التنقلات مع مرشد في الجولات السياحية 🗣️',
+                    'وجبة الإفطار 🍳',
+                    'جولة ودخولية تراس مشاهدة المناطيد 🌅'
+                ],
+                excluded: [
+                    'النفقات الشخصية والأنشطة الإضافية ❌',
+                    'ركوب المنطاد (160 يورو) 🎈',
+                    'وجبة الغداء لليوم الثاني 🍽️',
+                    'جولة ATV السفاري 🏍️'
+                ]
+            },
+            'trabzon-north': {
+                title: 'رحلة طرابزون والشمال التركي',
+                img: 'images/trabzon.png',
+                video: '',
+                duration: '4 أيام و 3 ليالي',
+                desc: 'طرابزون - ريزا - مرتفعات ايدر - بوز تبة ازونجول - رافتينج - قلعة الجرس ومرتفعات اوردو - مزارع ومعامل انتاج الشاي - نهر فارتينا دارسي.',
+                price: 'تواصل معنا',
+                waNumber: '905558909203',
+                itinerary: [
+                    { time: 'اليوم الأول', title: 'الوصول وجولة', desc: 'استلام الغرف ثم الراحة والتجهيز لزيارة مطل بوزيتبه.' },
+                    { time: 'اليوم الثاني', title: 'أوزنجول', desc: 'الإفطار في الفندق بوفيه مفتوح، الانطلاق إلى بحيرة أزونجول وصعود القمة (اختياري)، زيارة شلالات طريق الديميركابى، والتوجه لزيارة مزارع الشاي ومعمل انتاج الشاي ومعرض السكاكين.' },
+                    { time: 'اليوم الثالث', title: 'ريزا وأيدر', desc: 'الإفطار، الإنطلاق إلى مدينة ريزا ووادي الرياح (رافتينج وزبلاين اختياري)، الذهاب إلى مرتفعات أيدر، قلعة الجرس (اختياري)، وشلالات ايدر.' },
+                    { time: 'اليوم الرابع', title: 'أوردو', desc: 'بعد الإفطار ومغادرة الفندق، الذهاب إلى مدينة أوردو والانطلاق لمرتفعات أوردو حيث المناظر الخلابة وركوب التلفريك.' }
+                ],
+                included: [
+                    'فنادق فخمة 🏨',
+                    'النقل بباصات حديثة أو طيران حسب الحجز ✈️🚌',
+                    'جميع الجولات السياحية المذكورة 🏞️',
+                    'فطور أوبن بوفيه 🍳',
+                    'كادر سياحي متخصص 🗣️'
+                ],
+                excluded: [
+                    'النفقات الشخصية والأنشطة الإضافية (رافتينج، زبلاين، تلفريك الخ) ❌'
+                ]
+            }
+        };
+
+        function getIconForTitle(title) {
+            const lowTitle = title.toLowerCase();
+            if (lowTitle.includes('انطلاق') || lowTitle.includes('عودة') || lowTitle.includes('مواصلات')) return 'fa-bus';
+            if (lowTitle.includes('غداء') || lowTitle.includes('عشاء') || lowTitle.includes('طعام')) return 'fa-utensils';
+            if (lowTitle.includes('جولة') || lowTitle.includes('زيارة') || lowTitle.includes('استكشاف')) return 'fa-camera';
+            if (lowTitle.includes('جبل') || lowTitle.includes('طبيعة') || lowTitle.includes('شلال')) return 'fa-mountain';
+            if (lowTitle.includes('تسوق') || lowTitle.includes('مول')) return 'fa-shopping-bag';
+            if (lowTitle.includes('بحر') || lowTitle.includes('باخرة') || lowTitle.includes('قارب')) return 'fa-ship';
+            if (lowTitle.includes('فندق') || lowTitle.includes('اقامة')) return 'fa-hotel';
+            return 'fa-map-marker-alt';
+        }
+
+        function initPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tripId = urlParams.get('trip') || 'izmit-sapanca';
+            const data = tripsData[tripId];
+
+            if (data) {
+                document.getElementById('page-title').innerText = data.title + " | Zizou Travel";
+                document.getElementById('trip-title').innerText = data.title;
+                document.getElementById('page-wrapper').style.backgroundImage = "url('" + data.img + "')";
+                document.getElementById('trip-duration').innerText = data.duration;
+                document.getElementById('trip-desc').innerText = data.desc;
+                document.getElementById('trip-price').innerText = data.price;
+
+                const gallery = document.getElementById('gallery-container');
+                gallery.innerHTML = '';
+
+                // Get current time for status bar
+                const now = new Date();
+                const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+                // Build iPhone mockup with excursion-specific video
+                const videoSrc = data.video || '';
+                gallery.innerHTML = `
+                    <div class="iphone-showcase">
+                        <div class="iphone-wrapper">
+                            <!-- Sparkles -->
+                            <div class="sparkle" style="width:8px;height:8px;top:-10px;left:30px;animation-delay:0s;"></div>
+                            <div class="sparkle" style="width:5px;height:5px;top:20px;right:-5px;animation-delay:1s;"></div>
+                            <div class="sparkle" style="width:6px;height:6px;bottom:40px;left:-10px;animation-delay:2s;"></div>
+
+                            <div class="iphone-frame">
+                                <div class="iphone-screen">
+                                    <!-- Status bar -->
+                                    <div class="status-bar">
+                                        <span class="status-time">${timeStr}</span>
+                                        <div class="status-icons">
+                                            <i class="fas fa-signal"></i>
+                                            <i class="fas fa-wifi"></i>
+                                            <i class="fas fa-battery-three-quarters"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Dynamic Island -->
+                                    <div class="dynamic-island">
+                                        <div class="di-camera"></div>
+                                        <div class="di-dot"></div>
+                                    </div>
+
+                                    <!-- Video (always muted) -->
+                                    <video
+                                        id="trip-video"
+                                        class="iphone-video"
+                                        autoplay
+                                        muted
+                                        loop
+                                        playsinline
+                                        preload="metadata"
+                                        poster="${data.img}">
+                                        <source src="${videoSrc}" type="video/mp4">
+                                    </video>
+
+                                    <!-- Only Play/Pause control -->
+                                    <div class="video-controls">
+                                        <button class="ctrl-btn" id="play-btn" onclick="togglePlay()" title="تشغيل / إيقاف">
+                                            <i class="fas fa-pause" id="play-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="iphone-glow"></div>
+                        </div>
+                    </div>
+                `;
+
+                // Video control functions
+                window.togglePlay = function () {
+                    const vid = document.getElementById('trip-video');
+                    const icon = document.getElementById('play-icon');
+                    if (vid.paused) { vid.play(); icon.className = 'fas fa-pause'; }
+                    else { vid.pause(); icon.className = 'fas fa-play'; }
+                };
+
+                const waLink = document.getElementById('whatsapp-link');
+                const number = data.waNumber || '905558909203';
+                const message = encodeURIComponent("مرحباً Zizou Travel، أريد حجز رحلة: " + data.title);
+                waLink.href = "https://wa.me/" + number + "?text=" + message;
+
+                const list = document.getElementById('itinerary-list');
+                list.innerHTML = '';
+                data.itinerary.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'timeline-item';
+                    div.innerHTML = `
+                        <div class="timeline-icon">
+                            <i class="fas ${getIconForTitle(item.title)}"></i>
+                        </div>
+                        <div class="timeline-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.desc}</p>
+                        </div>
+                    `;
+                    list.appendChild(div);
+                });
+
+                const includesSection = document.getElementById('trip-includes-section');
+                if (data.included || data.excluded) {
+                    includesSection.style.display = 'block';
+                    const incList = document.getElementById('trip-included-list');
+                    const excList = document.getElementById('trip-excluded-list');
+                    incList.innerHTML = '';
+                    excList.innerHTML = '';
+
+                    if (data.included) {
+                        data.included.forEach(item => {
+                            incList.innerHTML += `<li style="margin-bottom: 10px; display: flex; gap: 10px;"><i class="fas fa-check" style="color: #4cd137; margin-top: 4px;"></i> <span>${item}</span></li>`;
+                        });
+                    }
+                    if (data.excluded) {
+                        data.excluded.forEach(item => {
+                            excList.innerHTML += `<li style="margin-bottom: 10px; display: flex; gap: 10px;"><i class="fas fa-times" style="color: #e84118; margin-top: 4px;"></i> <span>${item}</span></li>`;
+                        });
+                    }
+                }
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        window.onload = initPage;
+    </script>
+</body>
+
+</html>
